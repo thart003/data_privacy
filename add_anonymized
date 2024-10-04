@@ -16,6 +16,16 @@ WITH (
   format = 'PARQUET',
   partitioning = ARRAY['season']
 
+
+SELECT
+anonymized_player_id,
+AVG(pts)
+FROM
+taylorhart.nba_game_details_anonymized
+GROUP BY 1
+ORDER BY 2 DESC
+
+
 INSERT INTO taylorhart.nba_game_details_anonymized
 
 SELECT  npa.anonymized_id, gd.game_id, gd.start_position, gd.comment, gd.min, gd.fgm, gd.fga, 
