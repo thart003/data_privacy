@@ -42,7 +42,13 @@ WHERE g.season = 2003
 AND npa.current_season = 2003
 
 SELECT
-  committed_at,key, SPLIT(value,'=')[4]
+  key as partition_name, 
+  SUM(CAST(SPLIT(value,'=')[4] AS
+INTEGER)),
+  MAX(committed_at) as
+    last_update_date,
+  MIN(committed_at) as
+    first_update_date
 FROM
 taylorhart."nba_players_anonymized$snapshots"
 CROSS JOIN UNNEST(summary) as
