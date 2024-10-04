@@ -1,4 +1,20 @@
-WITH
+CREATE TABLE 
+taylorhart.nba_game_details_anonymized (
+  anonymized_player_id BIGINT,
+  game_id BIGINT,
+  start_position VARCHAR,
+  comment VARCHAR,
+  min VARCHAR,
+  fgm DOUBLE,
+  fga DOUBLE,
+  fg3m DOUBLE,
+  fg3a DOUBLE,
+  pts DOUBLE,
+  season INTEGER
+)
+WITH (
+  format = 'PARQUET',
+  partitioning = ARRAY['season']
 
 SELECT  npa.anonymized_id, gd.game_id, gd.start_position, gd.comment, gd.min, gd.fgm, gd.fga, 
 gd.fg3m, gd.fg3a, gd.points, g.season 
