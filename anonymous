@@ -8,7 +8,7 @@ CREATE TABLE taylorhart. nba_players_anonymized (
 )
 WITH (
   format = 'PARQUET',
-  patitioning = ARRAY['current_season']
+  partitioning = ARRAY['current_season']
 )
 
 WITH last_season (
