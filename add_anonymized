@@ -1,0 +1,14 @@
+WITH
+
+SELECT  npa.anonymized_id, gd.game_id, gd.start_position, gd.comment, gd.min, gd.fgm, gd.fga, 
+gd.fg3m, gd.fg3a, gd.points, g.season 
+FROM
+taylorhart.nba_game_details gd 
+JOIN taylorhart.nba_games g ON 
+gd.game_id = g.game_id
+JOIN taylorhart.nba_players_anonymized
+npa ON g.season =
+npa.current_season and
+gd.player_name = npa.player_name
+WHERE g.season = 2003
+AND npa.current_season = 2003
