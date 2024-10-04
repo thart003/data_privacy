@@ -42,7 +42,7 @@ WHERE g.season = 2003
 AND npa.current_season = 2003
 
 SELECT
-  committed_at,key, value
+  committed_at,key, SPLIT(value,'=')[4]
 FROM
 taylorhart."nba_players_anonymized$snapshots"
 CROSS JOIN UNNEST(summary) as
