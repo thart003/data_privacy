@@ -22,7 +22,7 @@ current_season as (
     RANDOM(1000000000) as anonymized_id,
     season
   FROM taylorhart.nba_player_seasons
-  
+  WHERE season = 1996
 ),
 
 combined AS (
