@@ -1,0 +1,39 @@
+INSERT INTO anonymized_player
+
+CREATE TABLE taylorhart. nba_players_anonymized (
+  player_name VARCHAR,
+  anonymized_id BIGINT,
+  last_active_season INTEGER,
+  current_season INTEGER
+)
+WITH (
+  format = 'PARQUET',
+  patitioning = ARRAY['current_season']
+)
+
+WITH last_season (
+  SELECT * FROM
+  taylorhart.nba_players_anonymized
+  WHERE current_season = 1996
+),
+current_season as (
+  SELECT
+    player_name, 
+    RANDOM(1000000000) as anonymized_id,
+    season
+  FROM taylorhart.nba_player_seasons
+  
+),
+
+combined AS (
+
+SELECT COALESCE(ls.player_name, cs.player_name) AS player_name,
+      COALESCE(ls.anonymized_id, cs.anonymized_id) AS anonymized_id,
+      COALESCE(cs.season, ls.last_active_season,
+      COALESCE(cs.season, ls.current_season = 1) AS current_season
+FROM last_season ls FULL OUTER JOIN current_season cs ON ls.player_name = cs.player_name
+)
+
+SELECT player_name, anonymized_id, last_active_season, current_season
+FROM combined
+WHERE last_active_season > current_season -5
