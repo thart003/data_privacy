@@ -40,3 +40,17 @@ npa.current_season and
 gd.player_name = npa.player_name
 WHERE g.season = 2003
 AND npa.current_season = 2003
+
+SELECT
+  key, value
+FROM
+taylorhart."nba_players_anonymized$snapshots"
+CROSS JOIN UNNEST(summary) as
+t(key, value)
+WHERE key LIKE '%partitions%'
+
+
+
+
+
+
