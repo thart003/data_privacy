@@ -54,6 +54,7 @@ taylorhart."nba_players_anonymized$snapshots"
 CROSS JOIN UNNEST(summary) as
 t(key, value)
 WHERE key LIKE '%partitions%'
+GROUP BY key
 
 
 
